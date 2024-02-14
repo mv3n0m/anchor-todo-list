@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("<PLACE YOUR ADDRESS HERE>");
+declare_id!("Ara3vtVnkAYwQZj36Vg12QcgzBvyMAGtTuywuEhD4wrT");
 
 #[program]
 pub mod todo_list_app {
@@ -10,11 +10,11 @@ pub mod todo_list_app {
         let task = &mut ctx.accounts.task;
         let author = &ctx.accounts.author; // The `author` account
         let clock = Clock::get().unwrap(); // Getting the current timestamp
-        
+
         if text.chars().count() > 400 {
             return Err(ErrorCode::TextTooLong.into());
         }
-        
+
         task.author = *author.key;
         task.is_done = false;
         task.created_at = clock.unix_timestamp;
@@ -28,24 +28,24 @@ pub mod todo_list_app {
         let task = &mut ctx.accounts.task;
         let author = &ctx.accounts.author; // The `author` account
         let clock = Clock::get().unwrap(); // Getting the current timestamp
-        
+
         task.author = *author.key;
         task.is_done = is_done;
         task.updated_at = clock.unix_timestamp;
         Ok(())
-       
+
     }
 
     pub fn deleting_task(ctx: Context<DeletingTask>) -> Result<()> {
         let task = &mut ctx.accounts.task;
         let author = &ctx.accounts.author; // The `author` account
         let clock = Clock::get().unwrap(); // Getting the current timestamp
-        
+
         task.author = *author.key;
         task.is_done = true;
         task.updated_at = clock.unix_timestamp;
         Ok(())
-       
+
     }
 
 
